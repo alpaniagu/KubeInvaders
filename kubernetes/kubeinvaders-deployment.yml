@@ -27,7 +27,7 @@ spec:
         run: kubeinvaders
     spec:
       containers:
-      - image: docker.io/luckysideburn/kubeinvaders:latest
+      - image: docker.io/keaper/kubeinvaders:2.0
         imagePullPolicy: Always
         name: kubeinvaders
         resources: {}
