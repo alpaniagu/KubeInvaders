@@ -52,8 +52,8 @@ To Install KubeInvaders on your Openshift Cluster clone this repo and launch the
 ```bash
 oc create clusterrole kubeinvaders-role --verb=watch,get,delete,list --resource=pods
 
-TARGET_NAMESPACE=foobar,awesome-namespace
-## You can define multiple namespaces ex: TARGET_NAMESPACE=foobar,foobar2
+TARGET_NAMESPACE=default,awesome-namespace
+## You can define multiple namespaces ex: TARGET_NAMESPACE=default,default2
 
 # Choose route host for your kubeinvaders instance.
 ROUTE_HOST=kubeinvaders.org
@@ -79,8 +79,8 @@ oc process -f openshift/KubeInvaders.yaml -p ROUTE_HOST=$ROUTE_HOST -p TARGET_NA
 
 ```bash
 #Change with the namespace you want to stress
-TARGET_NAMESPACE='foobar'
-## You can define multiple namespaces ex: TARGET_NAMESPACE=foobar,foobar2
+TARGET_NAMESPACE='default'
+## You can define multiple namespaces ex: TARGET_NAMESPACE=default,default2
 
 #Change with the URL of your Kubeinvaders
 ROUTE_HOST=kubeinvaders.org
@@ -89,11 +89,11 @@ kubectl apply -f kubernetes/kubeinvaders-namespace.yml
 kubectl apply -f kubernetes/kubeinvaders-deployment.yml -n kubeinvaders
 kubectl expose deployment  kubeinvaders --type=NodePort --name=kubeinvaders -n kubeinvaders --port 8080
 kubectl apply -f kubernetes/kubeinvaders-ingress.yml -n kubeinvaders
-kubectl create sa kubeinvaders -n foobar
+kubectl create sa kubeinvaders -n default
 kubectl apply -f kubernetes/kubeinvaders-role.yml
 kubectl apply -f kubernetes/kubeinvaders-rolebinding.yml
 
-TOKEN=`kubectl describe secret $(kubectl get secret -n foobar | grep 'kubeinvaders-token' | awk '{ print $1}') -n foobar | grep 'token:' | awk '{ print $2}'`
+TOKEN=`kubectl describe secret $(kubectl get secret -n default | grep 'kubeinvaders-token' | awk '{ print $1}') -n default | grep 'token:' | awk '{ print $2}'`
 
 kubectl set env deployment/kubeinvaders TOKEN=$TOKEN -n kubeinvaders
 kubectl set env deployment/kubeinvaders NAMESPACE=$TARGET_NAMESPACE -n kubeinvaders
