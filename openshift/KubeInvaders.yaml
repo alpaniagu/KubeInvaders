@@ -16,7 +16,7 @@ parameters:
   value: kubeinvaders.local
 - description: The location of the kubeinvaders image
   name: IMAGE_KUBEINVADERS
-  value: docker.io/luckysideburn/kubeinvaders:latest
+  value: docker.io/keaper/kubeinvaders:latest
 - description: The namespace to instantiate Kubeinvaders under.
   name: NAMESPACE
   value: kubeinvaders
